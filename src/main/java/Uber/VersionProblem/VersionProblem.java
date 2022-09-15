@@ -56,11 +56,9 @@ class VersionTrackerManager {
         activeVersions = new ArrayList<>();
         nonCompatibleVersions = new ArrayList<>();
     }
-
     public List<Version> getActiveVersions () {
         return this.activeVersions;
     }
-
     public List<Version> getNonCompatibleVersions() {
         return this.nonCompatibleVersions;
     }

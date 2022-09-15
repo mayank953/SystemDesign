@@ -1,17 +1,51 @@
 package Uber.MeetingRoom;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.security.InvalidParameterException;
 import java.util.*;
 
+@Getter
+@Setter
+class PairInt{
+    int start;
+    int end;
+}
 class MeetingRoom {
     private final long roomId;
-
+    Map<Integer,Integer> calendar;
     public MeetingRoom(long id) {
         this.roomId = id;
+        this.calendar = new HashMap<>();
     }
 
     public long getRoomId() {
         return this.roomId;
+    }
+
+    public Boolean ScheduleMeeting(int startTime,int endTime){
+        int ans =0;
+        if(calendar.containsKey(startTime)){
+            calendar.put(startTime,calendar.get(startTime)+1);
+        }else {
+            calendar.put(startTime,1);
+        }
+        if(calendar.containsKey(endTime)){
+            calendar.put(endTime,calendar.get(endTime)-1);
+        }else {
+            calendar.put(endTime,-1);
+        }
+        for(Integer time : calendar.keySet()){
+            ans+=calendar.get(time);
+            if(ans>2) {
+                calendar.put(startTime,calendar.get(startTime)-1);
+                calendar.put(endTime,calendar.get(endTime)+1);
+                return false;
+            }
+
+        }
+        return true;
     }
 }
 
@@ -55,8 +89,9 @@ class Meeting implements Comparable<Meeting> {
 
 class ScheduleMeetingService {
     private List<MeetingRoom> meetingRooms;
+    private List<Meeting> meetingSchedule;;
     private Map<Long, MeetingRoom> meetingRoomsMap;
-    private List<Meeting> meetingSchedule;
+
 
     public ScheduleMeetingService(List<MeetingRoom> meetingRooms) {
         this.meetingRooms = meetingRooms;
@@ -70,6 +105,9 @@ class ScheduleMeetingService {
     public MeetingRoom scheduleMeeting(Meeting meeting) {
         // find the position if meeting in the meetingSchedule
         // use binary search
+        for(MeetingRoom meetingRoom:meetingRooms){
+
+        }
         int meetingScheduleIndex = findMeetingPosition(meeting);
         System.out.println("Meeting index = " + meetingScheduleIndex);
         if (meetingScheduleIndex == -1) {
