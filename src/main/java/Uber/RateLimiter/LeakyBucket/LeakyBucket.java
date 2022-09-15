@@ -1,9 +1,11 @@
 package Uber.RateLimiter.LeakyBucket;
 
+import Uber.RateLimiter.RateLimiter;
+
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class LeakyBucket implements  RateLimiter{
+public class LeakyBucket implements RateLimiter {
     BlockingQueue<Integer> queue;
 
     LeakyBucket(int capacity){

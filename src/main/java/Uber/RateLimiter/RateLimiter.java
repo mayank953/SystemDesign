@@ -1,4 +1,4 @@
-package Uber.RateLimiter.LeakyBucket;
+package Uber.RateLimiter;
 
 public interface RateLimiter {
     boolean grantAccess();

@@ -1,9 +1,11 @@
-package Uber.RateLimiter.LeakyBucket;
+package Uber.RateLimiter.TokenBucket;
+
+import Uber.RateLimiter.RateLimiter;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class TokenBucket implements RateLimiter{
+public class TokenBucket implements RateLimiter {
 
     private int bucketCapacity;
     private int refreshRate;
@@ -13,8 +15,8 @@ public class TokenBucket implements RateLimiter{
     public TokenBucket(int bucketCapacity,int refreshRate){
         this.bucketCapacity=  bucketCapacity;
         this.refreshRate = refreshRate;
-        currentCapacity.getAndSet(bucketCapacity);
-        lastUpdatedTime.getAndSet(System.currentTimeMillis());
+        currentCapacity= new AtomicInteger(bucketCapacity);
+        lastUpdatedTime = new AtomicLong(System.currentTimeMillis());
     }
 
 
